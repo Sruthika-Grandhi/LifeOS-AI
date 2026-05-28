@@ -1,0 +1,17 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# Local databases & logs
+data.json
+*.log
+
+# Environment variables & secrets
+.env
+.env.production
+.env.local
+
+# Operating System files
+.DS_Store
+Thumbs.db

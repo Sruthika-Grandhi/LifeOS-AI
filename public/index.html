@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeOS AI - Human Performance Optimization & Burnout Prevention</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Style Sheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+  <!-- Toast Notification Wrapper -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- ==================== AUTHENTICATION LAYER ==================== -->
+  <section id="auth-section" class="auth-section">
+    <div class="auth-background-glows">
+      <div class="glow-orb orb-purple"></div>
+      <div class="glow-orb orb-indigo"></div>
+    </div>
+    
+    <div class="auth-card glass-card">
+      <div class="brand-header">
+        <div class="brand-logo">
+          <i data-lucide="zap" class="logo-icon"></i>
+        </div>
+        <h1 class="gradient-text">LifeOS AI</h1>
+        <p class="tagline">Cognitive Performance & Burnout Prevention System</p>
+      </div>
+
+      <!-- Login Tab -->
+      <div id="login-form-container" class="auth-form-container">
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Access your optimization workspace</p>
+        
+        <form id="login-form" class="auth-form">
+          <div class="input-group">
+            <label for="login-username">Username</label>
+            <div class="input-wrapper">
+              <i data-lucide="user" class="input-icon"></i>
+              <input type="text" id="login-username" placeholder="demo" required autocomplete="username">
+            </div>
+          </div>
+          
+          <div class="input-group">
+            <label for="login-password">Password</label>
+            <div class="input-wrapper">
+              <i data-lucide="lock" class="input-icon"></i>
+              <input type="password" id="login-password" placeholder="password123" required autocomplete="current-password">
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-block">
+            <span>Access Terminal</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+        </form>
+        <p class="auth-switch">Don't have an account? <a href="#" id="go-to-register">Create workspace</a></p>
+      </div>
+
+      <!-- Register Tab -->
+      <div id="register-form-container" class="auth-form-container hidden">
+        <h2>Initialize Profile</h2>
+        <p class="subtitle">Start tracking cognitive metrics</p>
+        
+        <form id="register-form" class="auth-form">
+          <div class="input-group">
+            <label for="register-username">Choose Username</label>
+            <div class="input-wrapper">
+              <i data-lucide="user" class="input-icon"></i>
+              <input type="text" id="register-username" placeholder="Username" required autocomplete="username">
+            </div>
+          </div>
+          
+          <div class="input-group">
+            <label for="register-password">Choose Password</label>
+            <div class="input-wrapper">
+              <i data-lucide="lock" class="input-icon"></i>
+              <input type="password" id="register-password" placeholder="Min. 6 characters" required autocomplete="new-password">
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-accent btn-block">
+            <span>Register Profile</span>
+            <i data-lucide="user-plus"></i>
+          </button>
+        </form>
+        <p class="auth-switch">Already registered? <a href="#" id="go-to-login">Access workspace</a></p>
+      </div>
+      
+      <!-- Hackathon Demo Hint -->
+      <div class="demo-badge">
+        <i data-lucide="info"></i>
+        <span>Hackathon Demo: Use username <strong>demo</strong> & password <strong>password123</strong> to enter with pre-loaded 7-day logs!</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ONBOARDING WIZARD ==================== -->
+  <section id="onboarding-section" class="onboarding-section hidden">
+    <div class="wizard-container glass-card">
+      <div class="wizard-header">
+        <span class="step-indicator">Step <span id="current-step-num">1</span> of 3</span>
+        <h2>Onboarding Wizard</h2>
+        <div class="progress-bar-container">
+          <div id="wizard-progress" class="progress-bar-fill" style="width: 33%"></div>
+        </div>
+      </div>
+
+      <form id="onboarding-form">
+        <!-- Step 1: Core Performance Goals -->
+        <div class="wizard-step" id="step-1">
+          <h3>Define Optimization Goals</h3>
+          <p class="step-desc">Select the primary areas you want LifeOS AI to monitor and optimize.</p>
+          
+          <div class="goals-grid">
+            <label class="goal-checkbox-card">
+              <input type="checkbox" name="goals" value="Avoid Burnout">
+              <div class="card-inner">
+                <i data-lucide="shield-alert" class="goal-icon text-red"></i>
+                <span class="goal-title">Prevent Burnout</span>
+                <span class="goal-desc">Detect exhaustion flags before performance drops</span>
+              </div>
+            </label>
+
+            <label class="goal-checkbox-card">
+              <input type="checkbox" name="goals" value="Improve Sleep Quality" checked>
+              <div class="card-inner">
+                <i data-lucide="moon" class="goal-icon text-indigo"></i>
+                <span class="goal-title">Optimize Sleep</span>
+                <span class="goal-desc">Track and reduce sleep debt cycles</span>
+              </div>
+            </label>
+
+            <label class="goal-checkbox-card">
+              <input type="checkbox" name="goals" value="Increase Productivity">
+              <div class="card-inner">
+                <i data-lucide="activity" class="goal-icon text-cyan"></i>
+                <span class="goal-title">Boost Focus</span>
+                <span class="goal-desc">Correlate habits with energy peaks</span>
+              </div>
+            </label>
+
+            <label class="goal-checkbox-card">
+              <input type="checkbox" name="goals" value="Exercise Daily">
+              <div class="card-inner">
+                <i data-lucide="flame" class="goal-icon text-orange"></i>
+                <span class="goal-title">Habit Discipline</span>
+                <span class="goal-desc">Build streak chains for physical longevity</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 2: Ideal Thresholds -->
+        <div class="wizard-step hidden" id="step-2">
+          <h3>Set Balance Boundaries</h3>
+          <p class="step-desc">We use these targets to alert you when daily metrics drift into danger zones.</p>
+          
+          <div class="form-rows">
+            <div class="form-row">
+              <div class="slider-header">
+                <label for="onboard-sleep-target"><i data-lucide="moon" class="icon-inline"></i> Ideal Sleep Target (Hours)</label>
+                <span class="slider-value" id="sleep-target-val">8.0 hrs</span>
+              </div>
+              <input type="range" id="onboard-sleep-target" min="5" max="10" step="0.5" value="8.0" class="premium-slider">
+            </div>
+            
+            <div class="form-row">
+              <div class="slider-header">
+                <label for="onboard-work-target"><i data-lucide="briefcase" class="icon-inline"></i> Daily Work Hours Target</label>
+                <span class="slider-value" id="work-target-val">8.0 hrs</span>
+              </div>
+              <input type="range" id="onboard-work-target" min="4" max="12" step="0.5" value="8.0" class="premium-slider">
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Habits Customization -->
+        <div class="wizard-step hidden" id="step-3">
+          <h3>Assemble Daily Habits Checklist</h3>
+          <p class="step-desc">Customize which behaviors you want to commit to logging each day.</p>
+          
+          <div class="habits-selection-list" id="habits-selection-list">
+            <!-- Dynamic default habits populated by script -->
+          </div>
+          
+          <div class="custom-habit-add">
+            <input type="text" id="new-habit-name" placeholder="Custom habit name... (e.g. cold plunge)">
+            <button type="button" class="btn btn-secondary" id="add-custom-habit-btn">
+              <i data-lucide="plus"></i> Add
+            </button>
+          </div>
+        </div>
+
+        <div class="wizard-footer">
+          <button type="button" class="btn btn-secondary hidden" id="prev-step-btn">
+            <i data-lucide="arrow-left"></i> Back
+          </button>
+          <button type="button" class="btn btn-primary" id="next-step-btn">
+            <span>Continue</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN APPLICATION TERMINAL ==================== -->
+  <main id="app-container" class="app-container hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar-nav glass-card">
+      <div class="sidebar-brand">
+        <div class="brand-logo mini">
+          <i data-lucide="zap"></i>
+        </div>
+        <span class="brand-title gradient-text">LifeOS AI</span>
+      </div>
+
+      <div class="user-profile-badge">
+        <div class="avatar-fallback" id="user-avatar-initial">U</div>
+        <div class="user-details">
+          <span class="username" id="display-username">Username</span>
+          <span class="status-badge"><span class="pulse-dot"></span>Online</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#" class="nav-link active" data-view="dashboard">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-link" data-view="tasks">
+          <i data-lucide="check-square"></i>
+          <span>Tasks Schedule</span>
+        </a>
+        <a href="#" class="nav-link" data-view="habits">
+          <i data-lucide="award"></i>
+          <span>Habits Vault</span>
+        </a>
+        <a href="#" class="nav-link" data-view="profile">
+          <i data-lucide="sliders"></i>
+          <span>Core Profile</span>
+        </a>
+      </nav>
+
+      <button id="quick-log-btn" class="btn btn-primary btn-quick-log">
+        <i data-lucide="plus-circle"></i>
+        <span>Log Daily Stats</span>
+      </button>
+
+      <div class="sidebar-footer">
+        <a href="#" id="logout-btn" class="nav-link logout">
+          <i data-lucide="log-out"></i>
+          <span>Terminate Session</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <section class="workspace-area">
+      <!-- Top header bar -->
+      <header class="workspace-header">
+        <div class="header-search">
+          <h2 id="view-title">Cognitive Control</h2>
+        </div>
+        <div class="header-actions">
+          <div id="burnout-header-alert" class="burnout-header-alert hidden">
+            <span class="danger-dot"></span>
+            <span>BURNOUT RISK: CRITICAL</span>
+          </div>
+          <div class="header-date" id="current-date-display">
+            Wednesday, May 27, 2026
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW: DASHBOARD -->
+      <div id="view-dashboard" class="workspace-view">
+        <!-- Quick stats cards grid -->
+        <div class="stats-grid">
+          <div class="stat-card glass-card border-glow-blue">
+            <div class="stat-header">
+              <span>Performance Quotient</span>
+              <i data-lucide="gauge" class="text-blue"></i>
+            </div>
+            <div class="stat-body">
+              <span class="stat-number" id="dashboard-productivity-score">--</span>
+              <span class="stat-desc">Index out of 100</span>
+            </div>
+            <div class="progress-mini">
+              <div class="progress-mini-fill bg-blue" id="score-mini-progress" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="stat-card glass-card border-glow-green">
+            <div class="stat-header">
+              <span>Habit Streak</span>
+              <i data-lucide="flame" class="text-green"></i>
+            </div>
+            <div class="stat-body">
+              <span class="stat-number" id="dashboard-habit-streak">--</span>
+              <span class="stat-desc">Days consecutive</span>
+            </div>
+            <div class="stat-extra text-green">
+              <i data-lucide="check-circle-2" class="icon-tiny"></i> Active discipline chain
+            </div>
+          </div>
+
+          <div class="stat-card glass-card border-glow-yellow">
+            <div class="stat-header">
+              <span>Sleep Deficit</span>
+              <i data-lucide="moon" class="text-yellow"></i>
+            </div>
+            <div class="stat-body">
+              <span class="stat-number" id="dashboard-sleep-delta">--</span>
+              <span class="stat-desc">Hours from goal</span>
+            </div>
+            <div class="stat-extra text-yellow" id="sleep-deficit-desc">
+              Monitoring sleep cycles
+            </div>
+          </div>
+
+          <div class="stat-card glass-card border-glow-red" id="burnout-status-card">
+            <div class="stat-header">
+              <span>Exhaustion Predictor</span>
+              <i data-lucide="shield-alert" class="text-red"></i>
+            </div>
+            <div class="stat-body">
+              <span class="stat-number" id="dashboard-burnout-risk">--</span>
+              <span class="stat-desc" id="dashboard-burnout-score">Score: --/100</span>
+            </div>
+            <div class="stat-extra text-red" id="burnout-card-extra">
+              Stress metrics loading...
+            </div>
+          </div>
+        </div>
+
+        <!-- AI insights banner (Claude/Gemini generated reports) -->
+        <div class="ai-insight-panel glass-card">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="ai-sparkle-bg">
+                <i data-lucide="sparkles" class="text-indigo animate-pulse"></i>
+              </div>
+              <div>
+                <h3>Personalized AI Coach Report</h3>
+                <span class="panel-subtitle">Cognitive health & performance review</span>
+              </div>
+            </div>
+            <span class="engine-badge"><i data-lucide="cpu" class="icon-tiny"></i> LifeOS AI Engine v1.2</span>
+          </div>
+          <div class="panel-body">
+            <div class="ai-content-layout">
+              <div class="ai-report-text">
+                <p id="ai-insight-text">Analyzing database records to construct report...</p>
+                <div class="predictions-block">
+                  <div class="predictions-header">
+                    <i data-lucide="compass" class="icon-inline"></i> Predictive Outcome:
+                  </div>
+                  <p id="ai-predictions-text">Aggregating historical patterns to forecast burnout trajectory...</p>
+                </div>
+              </div>
+              <div class="ai-recommendations-list">
+                <h4><i data-lucide="check-circle" class="icon-inline text-emerald"></i> Interventions:</h4>
+                <ul id="ai-recommendations-ul">
+                  <li>Loading recommendations...</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Habits & Checklist Grid -->
+        <div class="dashboard-rows">
+          <!-- Habit checklist -->
+          <div class="dashboard-panel glass-card">
+            <div class="panel-header border-bottom">
+              <h3>Habits Logging</h3>
+              <span class="badge" id="habits-progress-badge">0% Complete</span>
+            </div>
+            <div class="panel-body">
+              <div class="habits-progress-bar-container">
+                <div id="habits-progress-bar" class="habits-progress-bar-fill" style="width: 0%"></div>
+              </div>
+              <div class="dashboard-habits-list" id="dashboard-habits-list">
+                <!-- Checklist injected dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- To-Do App widget -->
+          <div class="dashboard-panel glass-card">
+            <div class="panel-header border-bottom">
+              <h3>Active Checklist</h3>
+              <button class="btn btn-secondary btn-sm" id="btn-add-task-dash"><i data-lucide="plus"></i> Add Task</button>
+            </div>
+            <div class="panel-body">
+              <div class="dashboard-tasks-list" id="dashboard-tasks-list">
+                <!-- Tasks list injected dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart visualization row -->
+        <div class="chart-panel glass-card">
+          <div class="panel-header">
+            <div>
+              <h3>Dynamic Performance Correlations</h3>
+              <span class="panel-subtitle">Sustained work hours compared with sleep debt & mood index</span>
+            </div>
+            <div class="chart-legend-custom">
+              <span class="legend-dot bg-indigo"></span> Work Hours
+              <span class="legend-dot bg-yellow"></span> Sleep Hours
+              <span class="legend-dot bg-cyan"></span> Mood Score
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="chart-container">
+              <canvas id="performanceChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW: TASKS VIEW -->
+      <div id="view-tasks" class="workspace-view hidden">
+        <div class="tasks-page-header glass-card">
+          <div class="header-text">
+            <h3>Schedule & Focus Checklist</h3>
+            <p>Log and group your active focus items. Tasks completed today count toward the performance score.</p>
+          </div>
+          <form id="task-creator-form" class="task-creator-form">
+            <div class="form-inputs">
+              <input type="text" id="task-title" placeholder="What task will you accomplish?" required>
+              <select id="task-priority">
+                <option value="high">🔥 High Priority</option>
+                <option value="medium" selected>⚡ Medium Priority</option>
+                <option value="low">💤 Low Priority</option>
+              </select>
+              <select id="task-category">
+                <option value="work">💼 Work</option>
+                <option value="health" selected>❤️ Health & Body</option>
+                <option value="personal">👤 Personal</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-accent"><i data-lucide="plus"></i> Add Focus Item</button>
+          </form>
+        </div>
+
+        <div class="tasks-kanban-layout">
+          <!-- Pending tasks -->
+          <div class="kanban-column glass-card">
+            <div class="column-header">
+              <span class="column-title">Active Items</span>
+              <span class="badge badge-indigo" id="active-tasks-count">0</span>
+            </div>
+            <div class="column-body" id="kanban-active-list">
+              <!-- Active tasks list -->
+            </div>
+          </div>
+
+          <!-- Completed tasks -->
+          <div class="kanban-column glass-card">
+            <div class="column-header">
+              <span class="column-title">Completed Today</span>
+              <span class="badge badge-emerald" id="completed-tasks-count">0</span>
+            </div>
+            <div class="column-body" id="kanban-completed-list">
+              <!-- Completed tasks list -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW: HABITS VIEW -->
+      <div id="view-habits" class="workspace-view hidden">
+        <div class="habits-vault-header glass-card">
+          <h3>Habits Vault</h3>
+          <p>Habits shape outcomes. Track and lock in behavioral discipline chains. View recent weekly records.</p>
+        </div>
+
+        <div class="habits-vault-grid" id="habits-vault-grid">
+          <!-- Dynamic habit panels with completion progress rings and streaks -->
+        </div>
+      </div>
+
+      <!-- VIEW: CORE PROFILE -->
+      <div id="view-profile" class="workspace-view hidden">
+        <div class="profile-settings-layout">
+          <div class="settings-column-main glass-card">
+            <h3>Profile Configurations</h3>
+            <p class="settings-desc">Update your optimization objectives and alert limits.</p>
+            
+            <form id="profile-settings-form">
+              <div class="settings-group">
+                <h4>System Targets</h4>
+                <div class="form-rows">
+                  <div class="form-row">
+                    <div class="slider-header">
+                      <label for="settings-sleep-target">Ideal Sleep Threshold (Hours)</label>
+                      <span class="slider-value" id="settings-sleep-target-val">8.0 hrs</span>
+                    </div>
+                    <input type="range" id="settings-sleep-target" min="5" max="10" step="0.5" value="8.0" class="premium-slider">
+                  </div>
+                  
+                  <div class="form-row">
+                    <div class="slider-header">
+                      <label for="settings-work-target">Daily Work Limit (Hours)</label>
+                      <span class="slider-value" id="settings-work-target-val">8.0 hrs</span>
+                    </div>
+                    <input type="range" id="settings-work-target" min="4" max="12" step="0.5" value="8.0" class="premium-slider">
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-group">
+                <h4>Active Goals</h4>
+                <div class="settings-goals-list">
+                  <label class="setting-goal-item">
+                    <input type="checkbox" name="settings-goals" value="Avoid Burnout">
+                    <span>Prevent Burnout Alerts</span>
+                  </label>
+                  <label class="setting-goal-item">
+                    <input type="checkbox" name="settings-goals" value="Improve Sleep Quality">
+                    <span>Optimize Sleep Cycle Data</span>
+                  </label>
+                  <label class="setting-goal-item">
+                    <input type="checkbox" name="settings-goals" value="Increase Productivity">
+                    <span>Performance Analytics</span>
+                  </label>
+                  <label class="setting-goal-item">
+                    <input type="checkbox" name="settings-goals" value="Exercise Daily">
+                    <span>Streaks Tracking</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="settings-group">
+                <h4>Routines Structure</h4>
+                <div class="input-group">
+                  <label for="settings-morning-routine">Morning Routine Focus</label>
+                  <input type="text" id="settings-morning-routine" placeholder="E.g. Drink water, stretch, meditate">
+                </div>
+                <div class="input-group">
+                  <label for="settings-evening-routine">Evening Routine Focus</label>
+                  <input type="text" id="settings-evening-routine" placeholder="E.g. Read book, screen shutdown">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary"><i data-lucide="save"></i> Save Configurations</button>
+            </form>
+          </div>
+
+          <div class="settings-column-sidebar glass-card">
+            <h3>Habits Configuration</h3>
+            <p class="settings-desc">Manage the habits logged daily. Adding or removing habits resets today's tracking checklist.</p>
+            
+            <div class="profile-habits-config-list" id="profile-habits-config-list">
+              <!-- Habit items with delete buttons -->
+            </div>
+
+            <hr>
+
+            <h4 class="mt-4">Append Custom Habit</h4>
+            <form id="add-profile-habit-form" class="add-profile-habit-form">
+              <input type="text" id="profile-new-habit-name" placeholder="E.g. Code commit" required>
+              <select id="profile-new-habit-icon">
+                <option value="activity">Activity (Heartbeat)</option>
+                <option value="droplet">Water Droplet</option>
+                <option value="compass">Compass (Mindfulness)</option>
+                <option value="eye-off">Eye-Off (Offline)</option>
+                <option value="book-open">Book Open (Reading)</option>
+                <option value="flame">Flame (Exercise)</option>
+                <option value="coffee">Coffee (Rest)</option>
+              </select>
+              <button type="submit" class="btn btn-secondary btn-block"><i data-lucide="plus"></i> Append Habit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== DIALOGS & SLIDER MODALS ==================== -->
+  <!-- Daily Logger Modal -->
+  <div id="log-modal" class="modal-overlay hidden">
+    <div class="modal-card glass-card">
+      <div class="modal-header border-bottom">
+        <h3>Log Daily Optimization Metrics</h3>
+        <button class="modal-close" id="log-modal-close-btn">&times;</button>
+      </div>
+      <form id="daily-log-form">
+        <div class="modal-body">
+          <div class="input-group">
+            <label for="log-date">Logging Date</label>
+            <input type="date" id="log-date" class="input-date" required>
+          </div>
+
+          <div class="slider-row">
+            <div class="slider-header">
+              <label for="log-sleep-hours"><i data-lucide="moon" class="icon-inline text-yellow"></i> Sleep Duration</label>
+              <span class="slider-value" id="log-sleep-val">7.0 hrs</span>
+            </div>
+            <input type="range" id="log-sleep-hours" min="3" max="12" step="0.1" value="7.0" class="premium-slider">
+          </div>
+
+          <div class="slider-row">
+            <div class="slider-header">
+              <label for="log-work-hours"><i data-lucide="briefcase" class="icon-inline text-indigo"></i> Work Hours</label>
+              <span class="slider-value" id="log-work-val">8.0 hrs</span>
+            </div>
+            <input type="range" id="log-work-hours" min="0" max="16" step="0.5" value="8.0" class="premium-slider">
+          </div>
+
+          <div class="survey-ratings">
+            <div class="rating-group">
+              <label>Energy Level</label>
+              <div class="rating-options">
+                <label class="rating-pill">
+                  <input type="radio" name="energyScore" value="1">
+                  <span>1 (Exhausted)</span>
+                </label>
+                <label class="rating-pill">
+                  <input type="radio" name="energyScore" value="2">
+                  <span>2</span>
+                </label>
+                <label class="rating-pill">
+                  <input type="radio" name="energyScore" value="3" checked>
+                  <span>3</span>
+                </label>
+                <label class="rating-pill">
+                  <input type="radio" name="energyScore" value="4">
+                  <span>4</span>
+                </label>
+                <label class="rating-pill">
+                  <input type="radio" name="energyScore" value="5">
+                  <span>5 (Peak)</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="rating-group">
+              <label>Mood State</label>
+              <div class="rating-options">
+                <label class="rating-pill">
+                  <input type="radio" name="moodScore" value="1">
+                  <span>1 (Stressed)</span>
+                </label>
+                <label class="rating-pill">
+                  <input type="radio" name="moodScore" value="2">
+                  <span>2</span>
+                </label>
+                <label class="rating-pill">
+                  <input type="radio" name="moodScore" value="3" checked>
+                  <span>3</span>
+                </label>
+                <label class="rating-pill">
+                  <input type="radio" name="moodScore" value="4">
+                  <span>4</span>
+                </label>
+                <label class="rating-pill">
+                  <input type="radio" name="moodScore" value="5">
+                  <span>5 (Joyful)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-habits-section">
+            <h4>Check Completed Habits</h4>
+            <div class="modal-habits-grid" id="modal-habits-grid">
+              <!-- Habit checkboxes dynamically injected -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-top">
+          <button type="button" class="btn btn-secondary" id="log-modal-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Commit Daily Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS Code Files -->
+  <script src="js/api.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

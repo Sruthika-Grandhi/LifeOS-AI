@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  lifeos-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lifeos-ai-dashboard
+    restart: unless-stopped
+    ports:
+      - "9008:9008"
+    environment:
+      - PORT=9008
+      - JWT_SECRET=lifeos_ai_docker_default_secret_key_129847129
+      # Set LLM API keys if required
+      # - GEMINI_API_KEY=your_key_here
+      # - CLAUDE_API_KEY=your_key_here
+    volumes:
+      # Map the JSON data file to persist logs and profiles on the host
+      - ./data.json:/usr/src/app/data.json
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9008/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s

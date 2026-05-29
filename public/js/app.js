@@ -1034,6 +1034,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Profile password modify submit
+  document.getElementById('change-password-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const currentPassEl = document.getElementById('profile-current-password');
+    const newPassEl = document.getElementById('profile-new-password');
+    const confirmPassEl = document.getElementById('profile-confirm-password');
+
+    const currentPassword = currentPassEl.value;
+    const newPassword = newPassEl.value;
+    const confirmPassword = confirmPassEl.value;
+
+    if (newPassword.length < 6) {
+      showToast('New password must be at least 6 characters long', 'warning');
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      showToast('New passwords do not match. Please verify.', 'warning');
+      return;
+    }
+
+    try {
+      await API.changePassword(currentPassword, newPassword);
+      showToast('Account credentials successfully modified!', 'success');
+      currentPassEl.value = '';
+      newPassEl.value = '';
+      confirmPassEl.value = '';
+      switchView('dashboard');
+    } catch (err) {
+      showToast(err.message, 'danger');
+    }
+  });
+
   // ==================== APP BOOTSTRAP ==================== */
   // Register Service Worker for PWA Offline & Install capabilities
   if ('serviceWorker' in navigator) {

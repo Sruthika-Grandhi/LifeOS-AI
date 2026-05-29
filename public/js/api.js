@@ -78,6 +78,13 @@ const API = {
     });
   },
 
+  changePassword: async (currentPassword, newPassword) => {
+    return request('/profile/password', {
+      method: 'POST',
+      body: JSON.stringify({ currentPassword, newPassword })
+    });
+  },
+
   // Logs Operations
   getLogs: async () => {
     return request('/logs');

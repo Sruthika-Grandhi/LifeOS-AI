@@ -93,6 +93,22 @@ app.post('/api/profile', authenticateToken, (req, res) => {
   res.status(200).json(updated);
 });
 
+app.post('/api/profile/password', authenticateToken, (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ error: 'Current password and new password are required' });
+  }
+  if (newPassword.length < 6) {
+    return res.status(400).json({ error: 'New password must be at least 6 characters long' });
+  }
+
+  const result = db.updateUserPassword(req.userId, currentPassword, newPassword);
+  if (result.error) {
+    return res.status(400).json({ error: result.error });
+  }
+  res.status(200).json({ message: 'Password updated successfully' });
+});
+
 // Daily Logs API
 app.get('/api/logs', authenticateToken, (req, res) => {
   const logs = db.getLogs(req.userId);

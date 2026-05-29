@@ -239,6 +239,22 @@ module.exports = {
     return { user: { id: user.id, username: user.username } };
   },
 
+  updateUserPassword: (userId, currentPassword, newPassword) => {
+    const db = readDB();
+    const user = db.users.find(u => u.id === userId);
+    if (!user) return { error: 'User not found' };
+
+    const valid = verifyPassword(currentPassword, user.salt, user.passwordHash);
+    if (!valid) return { error: 'Incorrect current password' };
+
+    const { salt, hash } = hashPassword(newPassword);
+    user.passwordHash = hash;
+    user.salt = salt;
+
+    writeDB(db);
+    return { success: true };
+  },
+
   // Profiles APIs
   getProfile: (userId) => {
     const db = readDB();

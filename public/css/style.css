@@ -39,6 +39,10 @@
 }
 
 /* ==================== BASE STYLES ==================== */
+html {
+  background-color: var(--bg-darker);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -47,7 +51,7 @@
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-darker);
+  background-color: transparent;
   color: var(--text-main);
   min-height: 100vh;
   overflow-x: hidden;
@@ -542,7 +546,7 @@ hr {
 .app-container {
   display: flex;
   min-height: 100vh;
-  background: var(--bg-darker);
+  background: transparent;
 }
 
 /* Sidebar Navigation */
@@ -1648,7 +1652,7 @@ hr {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -2;
+  z-index: -1;
   overflow: hidden;
   background-color: var(--bg-darker);
 }
@@ -1658,7 +1662,7 @@ hr {
   border-radius: 50%;
   filter: blur(130px);
   mix-blend-mode: screen;
-  opacity: 0.13;
+  opacity: 0.28;
   animation: aurora-move 20s infinite alternate ease-in-out;
 }
 

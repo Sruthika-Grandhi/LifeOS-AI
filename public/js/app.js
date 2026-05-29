@@ -1035,6 +1035,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==================== APP BOOTSTRAP ==================== */
+  // Register Service Worker for PWA Offline & Install capabilities
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker: Registered successfully', reg.scope))
+        .catch(err => console.error('Service Worker: Registration failed', err));
+    });
+  }
+
   // Run initial state verify
   checkSessionState();
 });

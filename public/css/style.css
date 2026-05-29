@@ -1640,3 +1640,78 @@ hr {
 .text-indigo { color: var(--neon-indigo); }
 .text-purple { color: var(--neon-purple); }
 .mt-4 { margin-top: 1rem; }
+
+/* ==================== AURORA LIGHTS BACKGROUND ==================== */
+.aurora-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  overflow: hidden;
+  background-color: var(--bg-darker);
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(130px);
+  mix-blend-mode: screen;
+  opacity: 0.13;
+  animation: aurora-move 20s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+  width: 50vw;
+  height: 50vh;
+  background: radial-gradient(circle, var(--neon-cyan) 0%, transparent 70%);
+  top: -10%;
+  left: -10%;
+  animation-duration: 25s;
+}
+
+.blob-2 {
+  width: 60vw;
+  height: 60vh;
+  background: radial-gradient(circle, var(--neon-purple) 0%, transparent 70%);
+  bottom: -20%;
+  right: -10%;
+  animation-duration: 30s;
+  animation-delay: -5s;
+}
+
+.blob-3 {
+  width: 45vw;
+  height: 45vh;
+  background: radial-gradient(circle, var(--neon-indigo) 0%, transparent 70%);
+  top: 30%;
+  right: 20%;
+  animation-duration: 22s;
+  animation-delay: -10s;
+}
+
+.blob-4 {
+  width: 55vw;
+  height: 55vh;
+  background: radial-gradient(circle, var(--neon-emerald) 0%, transparent 70%);
+  bottom: 10%;
+  left: 20%;
+  animation-duration: 28s;
+  animation-delay: -15s;
+}
+
+@keyframes aurora-move {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(5vw, 5vh) scale(1.15) rotate(120deg);
+  }
+  66% {
+    transform: translate(-3vw, 8vh) scale(0.9) rotate(240deg);
+  }
+  100% {
+    transform: translate(2vw, -5vh) scale(1.05) rotate(360deg);
+  }
+}

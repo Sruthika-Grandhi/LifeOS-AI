@@ -5,6 +5,7 @@ web_modules/
 
 # Local databases & logs
 data.json
+data/
 *.log
 
 # Environment variables & secrets

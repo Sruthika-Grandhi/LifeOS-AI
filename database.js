@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const DB_FILE = path.join(__dirname, 'data.json');
+const DB_FILE = process.env.DATABASE_PATH || path.join(__dirname, 'data.json');
 
 // Helper to hash password securely with PBKDF2 (no external C++ modules)
 function hashPassword(password) {
